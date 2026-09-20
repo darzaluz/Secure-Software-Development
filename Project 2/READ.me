@@ -1,0 +1,130 @@
+# Question 1 HSS Vulnerability 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Injection</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <h2> Enter your name</h2>
+
+    <input type="text" id="userInput">
+    <button onclick="showName()">Submit</button>
+
+    <p id="output"></p>
+
+    <script>
+      function showName() {
+
+        let userInput = document.getElementById("userInput").value;
+        document.getElementById("output").innerHTML = userInput;
+      }
+    </script>
+
+  </body>
+</html>
+
+
+#Question 2 eval() Vulnerability
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eval() Vulnerability Demo</title>
+  </head>
+  <body>
+
+    <h2> Enter a calculation </h2>
+
+    <input type="text" id="userCode">
+    <button onclick="runCode()">Run</button>
+
+    <p id="result"></p>
+
+    <script>
+      function runCode(){
+
+        let userCode = document.getElementById("userCode").value;
+        let result = eval(userCode);
+        document.getElementById("result").innerHTML = result;
+      }
+      </script>
+  </body>
+</html>
+
+
+#Question 3 XSS Mitigation
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Injection</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <h2> Enter your name</h2>
+
+    <input type="text" id="userInput">
+    <button onclick="showName()">Submit</button>
+
+    <p id="output"></p>
+
+    <script>
+      function showName() {
+
+        let userInput = document.getElementById("userInput").value;
+        document.getElementById("output").textContent = userInput;
+      }
+    </script>
+
+  </body>
+</html>
+
+#Question 3 evel() mitigation
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eval() Vulnerability Demo</title>
+  </head>
+  <body>
+
+    <h2> Enter a calculation </h2>
+
+    <input type="text" id="userCode">
+    <button onclick="runCode()">Run</button>
+
+    <p id="result"></p>
+
+    <script>
+      function runCode(){
+
+        let userCode = document.getElementById("userCode").value;
+        let calculation =userCode.match(/^(\d+)\s*([+\-*/])\s*(\d+)$/);
+
+        if (calculation) {
+
+          let number1 = Number(calculation[1]);
+          let operator = calculation[2];
+          let number2 = Number(calculation[3]);
+
+          let result;
+
+          if (operator == "+") {
+            result = number1 + number2;
+          } else if (operator == "-") {
+            result = number1 - number2;
+          } else if (operator == "*") {
+            result = number1 * number2;
+          } else if (operator == "/") {
+            result = number1 / number2;
+          }
+          document.getElementById("result").textContent = result;
+
+        } else {
+          document.getElementById("result").textContent = "Invalid calculation.";
+        }
+      }
+      </script>
+  </body>
+</html>
