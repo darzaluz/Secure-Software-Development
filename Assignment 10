@@ -1,0 +1,77 @@
+Secure Server
+A Java keystore is used by the server to load its certificate and private key:
+KeyStore keyStore = KeyStore.getInstance("JKS");
+keyStore.load(new FileInputStream(keystoreFile),
+       keystorePassword.toCharArray());
+The keystore holds the security information that the server needs to identify itself during the TLS connection. The private key must be kept protected; the certificate can be used by the client to verify the server.
+Then the server builds the key information with:
+KeyManagerFactory keyManagerFactory =
+       KeyManagerFactory.getInstance("SunX509");
+keyManagerFactory.init(
+       keyStore,
+       keystorePassword.toCharArray()
+);
+
+The KeyManagerFactory uses the certificate and private key stored in the keystore so the TLS connection can use them.
+The server creates a TLS context with:
+SSLContext sslContext = SSLContext.getInstance("TLS");
+sslContext.init(
+       keyManagerFactory.getKeyManagers(),
+       null,
+       null
+);
+This is one of the most important security parts of the program, because TLS is used to protect the communication between client and server.
+The secure server socket is created with:
+SSLServerSocketFactory sslServerSocketFactory =
+       sslContext.getServerSocketFactory();
+SSLServerSocket sslServerSocket =
+       (SSLServerSocket) sslServerSocketFactory.createServerSocket(port);
+The program uses an SSLServerSocket instead of a normal server socket. This allows the server to communicate over a connection secured by TLS.
+Then the server receives and sends messages over the secure socket:
+String clientMessage = in.readLine();
+System.out.println("Client says: " + clientMessage);
+out.println("Hello, client!");
+Since these input and output streams are derived from the SSLSocket, the messages travel through the TLS connection, not a regular unprotected socket.
+Secure Client
+The client loads a truststore with:
+KeyStore trustStore = KeyStore.getInstance("JKS");
+trustStore.load(
+       new FileInputStream(truststoreFile),
+       truststorePassword.toCharArray()
+);
+The truststore contains the certificates that the client trusts. This allows the client to determine whether it can trust the server it is connecting to.
+Then the client creates a TrustManager factory:
+TrustManagerFactory trustManagerFactory =
+       TrustManagerFactory.getInstance("SunX509");
+trustManagerFactory.init(trustStore);
+The trust manager uses the truststore to verify the server certificate in the TLS connection. This adds authentication because the client does not trust any server by default.
+The client also creates its TLS context:
+SSLContext sslContext = SSLContext.getInstance("TLS");
+sslContext.init(
+       null,
+       trustManagerFactory.getTrustManagers(),
+       null
+);
+This tells the client to use TLS and to use the trusted certificates that are stored in the truststore. The secure connection is then created with:
+SSLSocketFactory sslSocketFactory =
+       sslContext.getSocketFactory();
+SSLSocket sslSocket =
+       (SSLSocket) sslSocketFactory.createSocket(host, port);
+The client uses an SSLSocket instead of a normal socket to secure the communication with the server using TLS.
+The client sends and receives messages using:
+out.println("Hello, server!");
+String serverMessage = in.readLine();
+System.out.println("Server says: " + serverMessage);
+When these messages are sent through the SSLSocket, the communication is protected between the client and server.
+The primary security feature of these two programs is that they use TLS, certificates, keystore, truststore, and secure sockets to secure the communication between the client and server. TLS offers encryption and integrity protection, and the truststore helps the client verify the identity of the server.
+
+
+
+
+
+
+
+
+
+
+
