@@ -1,3 +1,4 @@
+```text
 START
 
 GET username
@@ -31,3 +32,4 @@ ELSE
   END IF
   
 END
+```
