@@ -59,4 +59,3 @@ else:
         print("Payment cancelled.")
 
 connection.close()
-darzaluz@MacBook-Air Project_3 % 
