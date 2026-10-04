@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Payment Confirmation</title>
+</head>
+
+<body>
+
+    <h2>Payment Confirmation</h2>
+    <label>Customer Name:</label>
+    <input type="text" id="customerName">
+
+    <br><br>
+
+    <label>Payment Note:</label>
+    <input type="text" id="paymentNote">
+
+    <br><br>
+
+   <button onclick="showConfirmation()">Submit Payment</button>
+
+    <h3>Confirmation</h3>
+    <p id="nameOutput"></p>
+    <p id="noteOutput"></p>
+
+    <script>
+        function showConfirmation() {
+            let customerName = document.getElementById("customerName").value;
+            let paymentNote = document.getElementById("paymentNote").value;
+
+            document.getElementById("nameOutput").textContent =
+                "Customer: " + customerName;
+
+            document.getElementById("noteOutput").textContent =
+                "Payment Note: " + paymentNote;
+        }
+    </script>
+
+</body>
+</html>
