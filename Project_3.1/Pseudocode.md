@@ -30,10 +30,10 @@ LOGIN:
       ASK "Would you like to create an account with us?"
 
       IF answer is YES
-        Create new aacount 
+        GO TO account creation 
         RETURN TO LOGIN
       ELSE 
-        DISPLAY "You payment has been cancelled" 
+        DISPLAY "Your payment has been cancelled" 
         END IF
     END IF
 END
