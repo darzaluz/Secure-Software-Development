@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>eval() Vulnerability Demo</title>
+  </head>
+  <body>
+
+    <h2> Enter a calculation </h2>
+
+    <input type="text" id="userCode">
+    <button onclick="runCode()">Run</button>
+
+    <p id="result"></p>
+
+    <script>
+      function runCode(){
+
+        let userCode = document.getElementById("userCode").value;
+        let result = eval(userCode);
+        document.getElementById("result").innerHTML = result;
+      }
+      </script>
+  </body>
+</html>
