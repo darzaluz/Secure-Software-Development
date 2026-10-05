@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Injection</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <h2> Enter your name</h2>
+
+    <input type="text" id="userInput">
+    <button onclick="showName()">Submit</button>
+
+    <p id="output"></p>
+
+    <script>
+      function showName() {
+
+        let userInput = document.getElementById("userInput").value;
+        document.getElementById("output").innerHTML = userInput;
+      }
+    </script>
+
+  </body>
+</html>
