@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Secure User Search</title>
+</head>
+
+<body>
+	<h2>Secure User Search</h2>
+
+	<label>Enter username:</label>
+	<input type="text" id="username">
+
+	<button onclick="searchUser()">Search</button>
+
+	<p id="result"></p>
+
+	<script>
+		function searchUser() {
+			let username = document.getElementById("username").value;
+			
+			fetch("search.php",{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				},
+				body: "username=" + encodeURIComponent(username)
+			})
+
+			.then(response => response.text())
+			.then(data => {
+				document.getElementById("result").textContent = data;
+			});
+		}
+	</script>
+
+</body>
+</html>
